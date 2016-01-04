@@ -1,0 +1,12 @@
+﻿*{
+    margin:0;
+    padding:0;
+}
+#canvas-container{
+    height:630px;
+    background-color:gray;
+    width:901px;
+    margin-top:100px;
+    margin-left:20%;
+    margin-bottom:100px;
+}
