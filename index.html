@@ -3,19 +3,35 @@
 <html lang="en" >
 <head>
     <link rel="stylesheet" href="StyleSheet.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <meta charset="utf-8" />
     <title>Conway's Game of Life</title>
 </head>
 <body>
+    <div id="header">
+        <h2>Conway's Game of Life</h2>
+    </div>
     <div id="canvas-container">
         <div id="canvas-div">
             <canvas id="canvas" width="901" height="581"></canvas>
 
         </div>
-
+        <form class="form-inline">          
+            <label>Patterns:</label>
+            <select id="partterns">
+                <option>None</option>
+            </select>
+            <input class="btn btn-default btn-sm" type="button" value="Start" id="start">
+            <input class="btn btn-default btn-sm" type="button" value="Next" id="next">
+            <input class="btn btn-default btn-sm" type="button" value="Clear" id="clear">
+        </form>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="game_of_life.js"></script>
 </body>
 
 </html>
+<footer>
+    <p>Copyright 2016 by Ruiqian Yu. All Rights Reserved.</p>
+</footer>

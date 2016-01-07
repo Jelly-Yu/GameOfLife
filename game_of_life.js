@@ -3,7 +3,7 @@
     c_canvas.addEventListener('click', clickHandler);
     var context = c_canvas.getContext("2d");
     var row = 90;
-    var column = 60;
+    var column = 58;
     var board = new Array();
     for (i = 0; i < row; i++) {
         board[i] = new Array();
@@ -23,8 +23,35 @@
     context.strokeStyle = "#ddd";
     context.stroke();
     function clickHandler(e) {
-        context.fillStyle = "yellow";
-        context.fillRect(Math.floor(e.offsetX/ 10) * 10+0.5, Math.floor(e.offsetY / 10) * 10+0.5, 10, 10);
+        
+        var offsetX = Math.floor(e.offsetX / 10);
+        var offsetY = Math.floor(e.offsetY / 10);
+        if (board[offsetX][offsetY]) {
+            context.fillStyle = "gray";           
+            board[offsetX][offsetY] = 0;
+
+        } else {
+            context.fillStyle = "yellow";
+            board[offsetX][offsetY] = 1;
+        }
+        context.fillRect(offsetX * 10 +1, offsetY * 10 +1, 9, 9);
+        console.log("X:" + Math.floor(e.offsetX / 10));
+        console.log("Y:" + Math.floor(e.offsetY / 10));
     }
 
+    function draw() {
+        for (i = 0; i < row; i++) {
+            for (j = 0; j < column ; j++) {
+                context.fillStyle = board[i][j] == 0?"yellow":"gray";
+                context.fillRect(i * 10 + 1, j * 10 + 1, 9, 9);
+            }
+        }
+    }
+    function clear() {
+        for (i = 0; i < row; i++) {
+            for (j = 0; j < column ; j++) {
+                board[i][j] = 0;
+            }
+        }
+    }
 });

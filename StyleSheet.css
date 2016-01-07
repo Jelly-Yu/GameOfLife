@@ -2,11 +2,29 @@
     margin:0;
     padding:0;
 }
+footer{
+    margin-bottom: 0;
+    padding: 0.5em;
+    background-color: #efefef;
+    text-align: center;
+}
+#header{
+    background-image: url("banner.png");
+    background-position: right top;
+    color:white;
+    text-align:center;
+    padding:5px;
+    height:100px;
+}
 #canvas-container{
+    border: 5px groove #285ef2;
     height:630px;
     background-color:gray;
-    width:901px;
+    width:910px;
     margin-top:100px;
-    margin-left:20%;
+    margin-left:10%;
     margin-bottom:100px;
+}
+#start, #next, #clear{
+    margin-left:3%;
 }
