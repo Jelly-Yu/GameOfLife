@@ -1,4 +1,12 @@
 ﻿$(document).ready(function () {
+    var interval_id;
+    var SPEED_FAST = 100;
+    var SPEED_MED = 300;
+    var SPEED_SLO = 500;
+    var update_speed;
+    var btn_toggle = true;
+    var cell_counter = 0;
+    var age_counter = 0;
     var c_canvas = document.getElementById("canvas");
     var btn_start = document.getElementById("start");
     btn_start.addEventListener('click', start);
@@ -30,6 +38,7 @@
     context.stroke();
 
     function nextGeneration(){
+        age_counter ++;
         console.log("next button is clicked");
         var result = [], i, j, k, liveNum;
         for (i = 0; i< row; ++i){
@@ -38,7 +47,6 @@
         for (i = 0; i < row; ++i){
             for (j = 0; j <column; ++j){
                 liveNum = visit(i, j);
-                //console.log("cells alive: " + liveNum);
                 if (board[i][j] == 1 && liveNum < 2) result[i][j] = 0;
                 if (board[i][j] == 1 && liveNum > 3) result[i][j] = 0;
                 if (board[i][j] == 1 && (liveNum == 2 || liveNum == 3)) result[i][j] = 1;
@@ -51,6 +59,7 @@
             }
         }
         draw();
+        displayStat();
 
     }
     function visit(x, y){
@@ -81,11 +90,31 @@
         console.log("Y:" + Math.floor(e.offsetY / 10));
     }
 
+    function setSpeed(){
+        var e = document.getElementById("speed");
+        var sp = e.options[e.selectedIndex].text;
+        if(sp == "Fast"){
+            update_speed = SPEED_FAST;
+        }
+        if(sp == "Medium"){
+            update_speed = SPEED_MED;
+        }
+        if(sp == "Slow"){
+            update_speed = SPEED_SLO;
+        }
+    }
+
     function draw() {
+        cell_counter = 0;
         for (i = 0; i < row; i++) {
             for (j = 0; j < column ; j++) {
-                context.fillStyle = board[i][j] === 1?"yellow":"gray";
-                //console.log("i:" + i + " j: " + j + " " + board[i][j]);
+                if(board[i][j] == 1){
+                    cell_counter ++;
+                    context.fillStyle = "yellow";
+                }
+                else{
+                    context.fillStyle = "gray";
+                }
                 context.fillRect(i * 10 + 1, j * 10 + 1, 9, 9);
             }
         }
@@ -97,10 +126,28 @@
                 board[i][j] = 0;
             }
         }
+        cell_counter = 0;
+        age_counter = 0;
+        displayStat();
         draw();
     }
 
+    function displayStat() {
+        document.getElementById("nCell").innerHTML= "Cells alive: " + cell_counter;
+        document.getElementById("nGen").innerHTML= "Ages: " + age_counter;
+
+    }
+
     function start() {
-        setInterval(nextGeneration, 1000);
+        setSpeed();
+        if (btn_toggle){
+            interval_id = setInterval(nextGeneration, update_speed);
+            document.getElementById("start").value= "stop";
+        }
+        else{
+            clearInterval(interval_id);
+            document.getElementById("start").value= "start";
+        }
+        btn_toggle = !btn_toggle;
     }
 });
